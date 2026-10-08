@@ -1,0 +1,9 @@
+# Run on any computer on the same network as the Tempest hub. Host networking is needed to hear the hub's UDP broadcast.
+services:
+  arksignal-tempest:
+    image: ghcr.io/mallison01/arksignal-tempest-bridge:latest
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      ARKSIGNAL_URL: "http://HOST/wx/relay/YOUR-TOKEN"   # from My Weather Stations
+      ARKSIGNAL_ELEVATION_FT: "300"                       # height above sea level, for sea-level pressure

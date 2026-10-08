@@ -1,0 +1,74 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ArkSignal weather",
+        "description": "On ArkSignal open My Weather Stations, add a station and choose Home Assistant. Paste its upload address here (it ends in /wx/relay/ and a long secret).",
+        "data": {
+          "url": "Upload address"
+        }
+      },
+      "device": {
+        "title": "Choose the weather station",
+        "description": "Pick the device in Home Assistant that is your weather station (a Tempest, Ecowitt, Ambient, Davis or similar). Leave it empty to choose the sensors one by one.",
+        "data": {
+          "device": "Device"
+        }
+      },
+      "sensors": {
+        "title": "Check the sensors",
+        "description": "These were found automatically from the device you chose. Check each one and change or clear it. Leave a value empty if your station does not measure it. Units are sent as Home Assistant shows them; ArkSignal converts.",
+        "data": {
+          "temperature": "Temperature",
+          "humidity": "Humidity",
+          "pressure": "Pressure (sea level)",
+          "wind_speed": "Wind speed",
+          "wind_gust": "Wind gust",
+          "wind_direction": "Wind direction",
+          "rain_today": "Rain today",
+          "rain_rate": "Rain rate",
+          "solar_radiation": "Solar radiation",
+          "uv_index": "UV index",
+          "dew_point": "Dew point",
+          "lightning_count": "Lightning strikes today",
+          "lightning_distance": "Lightning distance",
+          "weather": "Weather entity (fills in anything missing)"
+        }
+      }
+    },
+    "error": {
+      "bad_address": "That does not look like an ArkSignal upload address. It should look like http://host/wx/relay/ followed by a long secret.",
+      "unknown_address": "ArkSignal does not know that address. Copy it again from My Weather Stations.",
+      "cannot_connect": "Could not reach ArkSignal. Check the address and that Home Assistant can reach the internet.",
+      "nothing_chosen": "Choose at least one sensor or a weather entity."
+    },
+    "abort": {
+      "already_configured": "That ArkSignal station is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ArkSignal weather",
+        "description": "Change which sensors are sent, or how often.",
+        "data": {
+          "temperature": "Temperature",
+          "humidity": "Humidity",
+          "pressure": "Pressure (sea level)",
+          "wind_speed": "Wind speed",
+          "wind_gust": "Wind gust",
+          "wind_direction": "Wind direction",
+          "rain_today": "Rain today",
+          "rain_rate": "Rain rate",
+          "solar_radiation": "Solar radiation",
+          "uv_index": "UV index",
+          "dew_point": "Dew point",
+          "lightning_count": "Lightning strikes today",
+          "lightning_distance": "Lightning distance",
+          "weather": "Weather entity (fills in anything missing)",
+          "interval": "Send every (seconds)"
+        }
+      }
+    }
+  }
+}

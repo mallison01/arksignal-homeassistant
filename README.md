@@ -8,7 +8,7 @@
   <br>
   <img src="https://img.shields.io/github/v/release/mallison01/arksignal-homeassistant?style=flat-square&color=3ee6a8" alt="Release">
   <img src="https://img.shields.io/badge/HACS-custom-41bdf5?style=flat-square" alt="HACS custom repository">
-  <img src="https://img.shields.io/github/license/mallison01/arksignal-homeassistant?style=flat-square" alt="MIT licence">
+  <img src="https://img.shields.io/github/license/mallison01/arksignal-homeassistant?style=flat-square" alt="MIT license">
 </p>
 
 # Put your weather station on the ArkSignal map
@@ -74,6 +74,6 @@ The [bridge](bridge/) is a small program (and a ready-made container, `ghcr.io/m
 * `python3 bridge/test_bridge.py`: the Tempest bridge.
 * HACS reads the version from the release tag, which must match `version` in `custom_components/arksignal/manifest.json`. Pushing a `v*` tag also builds the bridge container.
 
-## Licence
+## License
 
 MIT, see [LICENSE](LICENSE).

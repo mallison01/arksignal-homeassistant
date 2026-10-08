@@ -33,7 +33,7 @@ class Sender:
         payload = build_payload(opts.get(CONF_MAPPING, {}), self._state, opts.get(CONF_WEATHER))
         if payload is None:
             return False
-        payload["source"] = "home-assistant arksignal 1.0"
+        payload["source"] = "home-assistant arksignal 1.0.1"
         try:
             async with async_get_clientsession(self.hass).post(self.entry.data[CONF_URL], json=payload, timeout=20) as resp:
                 ok = resp.status < 300 or resp.status == 429   # 429: a moment too soon after the last one, not a problem

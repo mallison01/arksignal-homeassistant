@@ -153,7 +153,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(description="Send your Tempest hub's local readings to ArkSignal.")
     p.add_argument("--url", default=os.environ.get("ARKSIGNAL_URL", ""), help="your private upload address from My Weather Stations (http://host/wx/relay/TOKEN)")
     p.add_argument("--elevation-ft", type=float, default=None, help="height of the station above sea level, in feet (for sea-level pressure)")
-    p.add_argument("--elevation-m", type=float, default=None, help="the same, in metres")
+    p.add_argument("--elevation-m", type=float, default=None, help="the same, in meters")
     p.add_argument("--interval", type=int, default=int(os.environ.get("ARKSIGNAL_INTERVAL", "60")), help="seconds between sends (default 60)")
     p.add_argument("--port", type=int, default=int(os.environ.get("ARKSIGNAL_PORT", str(UDP_PORT))), help="UDP port of the hub's broadcast (default 50222)")
     a = p.parse_args(argv)

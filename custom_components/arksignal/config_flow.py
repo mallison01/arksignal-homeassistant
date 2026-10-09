@@ -13,22 +13,23 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import CONF_DEVICE, CONF_INTERVAL, CONF_MAPPING, CONF_URL, CONF_WEATHER, DEFAULT_INTERVAL, DOMAIN, MIN_INTERVAL
 from .mapping import METRICS, suggest
+from .net import post_following
 
 ADDRESS_RE = re.compile(r"^https?://[^/\s]+/wx/relay/([A-Za-z0-9_-]{20,64})/?$")
 
 
-async def _check(hass, url: str) -> str | None:
-    """None when the address is a working ArkSignal upload address; otherwise the error key. An empty post to a good address is answered 'no usable readings' (400);
-    an address that does not exist is answered 404."""
+async def _check(hass, url: str) -> tuple[str | None, str]:
+    """(error key or None, the address to use). None when the address is a working ArkSignal upload address. An empty post to a good address is answered 'no usable readings' (400);
+    an address that does not exist is answered 404. A redirect (http to https) is followed, and the address it ends at is the one kept."""
     try:
-        async with async_get_clientsession(hass).post(url, json={}, timeout=15) as resp:
-            if resp.status in (200, 400, 429):
-                return None
-            if resp.status == 404:
-                return "unknown_address"
-            return "cannot_connect"
+        status, final = await post_following(async_get_clientsession(hass), url, {}, 15)
     except Exception:
-        return "cannot_connect"
+        return "cannot_connect", url
+    if status in (200, 400, 429):
+        return None, final
+    if status == 404:
+        return "unknown_address", url
+    return "cannot_connect", url
 
 
 def _device_entities(hass, device_id: str) -> list[dict[str, Any]]:
@@ -70,11 +71,11 @@ class ArkSignalConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             else:
                 await self.async_set_unique_id(m.group(1))
                 self._abort_if_unique_id_configured()
-                err = await _check(self.hass, url)
+                err, final = await _check(self.hass, url)
                 if err:
                     errors[CONF_URL] = err
                 else:
-                    self._url = url.rstrip("/")
+                    self._url = final.rstrip("/")
                     return await self.async_step_device()
         return self.async_show_form(step_id="user", data_schema=vol.Schema({vol.Required(CONF_URL): str}), errors=errors)
 

@@ -66,6 +66,7 @@ The [bridge](bridge/) is a small program (and a ready-made container, `ghcr.io/m
 * **Nothing shows up on ArkSignal.** The first reading is sent about 20 seconds after setup, then every minute. Check Home Assistant's log for *ArkSignal*; it reports once if sending fails and once when it works again.
 * **A value is missing or wrong.** Open **Configure** and pick the right sensor for it, or clear it.
 * **The upload address is refused.** Copy it again from **My Weather Stations**; it ends in `/wx/relay/` and a long secret.
+* **"Could not reach ArkSignal" with an `http://` address.** Versions before 1.0.2 could not follow the redirect most sites make from `http://` to `https://`. Update to 1.0.2 or later, or change `http://` to `https://` in the address.
 
 ## For developers
 

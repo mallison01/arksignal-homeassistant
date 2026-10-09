@@ -11,6 +11,7 @@ from homeassistant.helpers.event import async_call_later, async_track_time_inter
 
 from .const import CONF_INTERVAL, CONF_MAPPING, CONF_URL, CONF_WEATHER, DEFAULT_INTERVAL, DOMAIN, MIN_INTERVAL
 from .mapping import build_payload
+from .net import post_following
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +22,7 @@ class Sender:
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:
         self.hass, self.entry = hass, entry
         self.failing = False
+        self.url = entry.data[CONF_URL]   # the address that last worked (a redirect from http to https is remembered)
         self.last_ok: datetime | None = None
         self._cancel = []
 
@@ -33,12 +35,11 @@ class Sender:
         payload = build_payload(opts.get(CONF_MAPPING, {}), self._state, opts.get(CONF_WEATHER))
         if payload is None:
             return False
-        payload["source"] = "home-assistant arksignal 1.0.1"
+        payload["source"] = "home-assistant arksignal 1.0.2"
         try:
-            async with async_get_clientsession(self.hass).post(self.entry.data[CONF_URL], json=payload, timeout=20) as resp:
-                ok = resp.status < 300 or resp.status == 429   # 429: a moment too soon after the last one, not a problem
-                if not ok:
-                    raise RuntimeError(f"HTTP {resp.status}")
+            status, self.url = await post_following(async_get_clientsession(self.hass), self.url, payload, 20)
+            if not (status < 300 or status == 429):   # 429: a moment too soon after the last one, not a problem
+                raise RuntimeError(f"HTTP {status}" if status else "too many redirects")
         except Exception as err:  # network down, address changed, station switched off
             if not self.failing:
                 _LOGGER.warning("Could not send the weather to ArkSignal: %s", err)

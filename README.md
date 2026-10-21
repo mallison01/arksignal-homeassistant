@@ -1,19 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mallison01/arksignal-homeassistant/main/images/banner.png" alt="ArkSignal Weather for Home Assistant" width="640">
+  <img src="https://raw.githubusercontent.com/ArkSignal/arksignal-homeassistant/main/images/banner.png" alt="ArkSignal Weather for Home Assistant" width="640">
 </p>
 
 <p align="center">
-  <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=mallison01&repository=arksignal-homeassistant&category=integration"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Add to HACS"></a>
+  <a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=ArkSignal&repository=arksignal-homeassistant&category=integration"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Add to HACS"></a>
   <a href="https://my.home-assistant.io/redirect/config_flow_start/?domain=arksignal"><img src="https://my.home-assistant.io/badges/config_flow_start.svg" alt="Add the integration"></a>
   <br>
-  <img src="https://img.shields.io/github/v/release/mallison01/arksignal-homeassistant?style=flat-square&color=3ee6a8" alt="Release">
+  <img src="https://img.shields.io/github/v/release/ArkSignal/arksignal-homeassistant?style=flat-square&color=3ee6a8" alt="Release">
   <img src="https://img.shields.io/badge/HACS-custom-41bdf5?style=flat-square" alt="HACS custom repository">
-  <img src="https://img.shields.io/github/license/mallison01/arksignal-homeassistant?style=flat-square" alt="MIT license">
+  <img src="https://img.shields.io/github/license/ArkSignal/arksignal-homeassistant?style=flat-square" alt="MIT license">
 </p>
 
 # Put your weather station on the ArkSignal map
 
-[ArkSignal](https://arksignal.allisononline.org) is Arkansas's open network for what is overhead, outdoors and on the air. This integration sends your weather station's readings to your own private ArkSignal station once a minute, so it shows up on the weather map next to everyone else's, with live conditions, charts, daily summaries and records.
+[ArkSignal](https://arksignal.net) is Arkansas's open network for what is overhead, outdoors and on the air. This integration sends your weather station's readings to your own private ArkSignal station once a minute, so it shows up on the weather map next to everyone else's, with live conditions, charts, daily summaries and records.
 
 You pick the device, it finds the right sensors by itself. That is the whole setup.
 
@@ -25,7 +25,7 @@ You pick the device, it finds the right sensors by itself. That is the whole set
 
 **1. Make your station on ArkSignal.** Open **My Weather Stations**, add a station, and choose *Home Assistant, a Tempest bridge or a script*. Copy its **upload address** (it looks like `http://host/wx/relay/` followed by a long secret).
 
-**2. Add this repository to HACS.** Click the *Add to HACS* button above, or in HACS open **Custom repositories** and add `https://github.com/mallison01/arksignal-homeassistant` as an **Integration**. Download **ArkSignal Weather** and restart Home Assistant. HACS tells you when a new version is out.
+**2. Add this repository to HACS.** Click the *Add to HACS* button above, or in HACS open **Custom repositories** and add `https://github.com/ArkSignal/arksignal-homeassistant` as an **Integration**. Download **ArkSignal Weather** and restart Home Assistant. HACS tells you when a new version is out.
 
 **3. Add the integration.** Click *Add the integration* above, or go to **Settings, Devices & services, Add integration, ArkSignal Weather**, then:
 
@@ -77,4 +77,6 @@ The [bridge](bridge/) is a small program (and a ready-made container, `ghcr.io/m
 
 ## License
 
-MIT, see [LICENSE](LICENSE).
+This integration and the Tempest bridge are MIT-licensed, see [LICENSE](LICENSE). They only send readings to an ArkSignal site.
+
+The ArkSignal portal that receives them is a separate project under the [GNU AGPL-3.0](https://github.com/ArkSignal/ArkSignal-Portal), maintained in the [ArkSignal organization](https://github.com/ArkSignal).
